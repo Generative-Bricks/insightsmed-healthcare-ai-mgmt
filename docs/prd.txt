@@ -1,0 +1,46 @@
+I have a desire to build a number of AI powered Healthcare Business management tools as sales products from my website.   
+
+Contract Analysis Tool, aka “The Golden Grid”
+Extract data such as the following (this is not meant to be an all inclusive list but simply provide an idea of what’s needed)
+                                                                              i.       Payer Rep contact details (this information is in general not found in the contracts themselves)
+
+                                                                           ii.        Timely Filing Deadlines
+
+New Claim
+Appeal Deadlines
+                                                                         iii.        Prior Authorization Requirements
+
+                                                                         iv.        Claim adjudication timelines
+
+Payment of clean claim
+Interest due if not paid by deadline
+Denial response timeline
+                                                                           v.        What classification of claim edits used
+
+                                                                         vi.        Fee schedule
+
+Client’s payment rate against fee schedule
+Client’s payment rate against their Medicare Jurisdiction
+                                                                       vii.        Provider credentialing requirements
+
+Credentialing department contact information
+Link to credentialing forms (forms must be provided by client and loaded in the secure portal)
+Denials Analysis Dashboard – All classifications to include denied reason, billed charges, expected reimbursement, denied quantity
+Denials by CPT
+Denials by Location/Department
+Denials by Provider
+Denials by Payor
+Complete KPI Dashboard to include a pictoral rolling 12 month-over-month view of minimally the following:
+Dollars by payor, location, provider in 120+
+Days in AR
+Denials Percentage by major classification and CPT
+Payor Mix by practice and provider
+Charges, Adjustments, Payments, Self Pay Balance, Self Pay Balance in Collections
+wRVUs
+Payments per wRVU
+Patients per day (broken down by surgical day and clinic day for applicable providers)
+Days to next available appointment (new patient, established patient, surgery)
+Charge lag
+                                                                              i.       Number of appointments kept and not billed
+
+Ancillary Services Revenues
