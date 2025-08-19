@@ -174,6 +174,25 @@ Implement complete authentication system with SSO support.
 - Apply size labels for planning
 - Add priority for scheduling
 
+## Configuration Settings
+
+### Task Naming Configuration
+The `.coderbot.yml` file includes settings to control how tasks are displayed:
+
+```yaml
+tasks:
+  use_issue_title: true  # Use issue title for task display names
+  task_name_format: "{issue-title}"  # Format for task display names
+  fallback_to_event_name: false  # Don't use generic webhook event names
+```
+
+**Options:**
+- `use_issue_title`: When `true`, uses the GitHub issue title as the task name
+- `task_name_format`: Template for task names (supports `{issue-title}`, `{issue-number}`, etc.)
+- `fallback_to_event_name`: When `false`, prevents generic names like "Handle issues.opened event"
+
+**Example:** Instead of showing "Handle issues.opened event", CoderBot will display the actual issue title like "InsightsMed Healthcare AI Management Platform".
+
 ## Troubleshooting
 
 ### CoderBot Not Responding

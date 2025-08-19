@@ -32,6 +32,9 @@ tasks:
   auto_assign: true
   create_branches: false  # Disabled due to server git issue
   branch_naming: "coderbot/{issue-number}-{task-title}"
+  use_issue_title: true  # Use issue title for task display names
+  task_name_format: "{issue-title}"  # Format for task display names
+  fallback_to_event_name: false  # Don't use generic webhook event names
   
 # Notification settings
 notifications:
