@@ -30,7 +30,7 @@ labels:
 # Task management
 tasks:
   auto_assign: true
-  create_branches: true
+  create_branches: false  # Disabled due to server git issue
   branch_naming: "coderbot/{issue-number}-{task-title}"
   
 # Notification settings
@@ -65,7 +65,7 @@ performance:
   
 # Workflow settings
 workflow:
-  enable_git_hooks: true
+  enable_git_hooks: false  # Disabled due to server git issue
   auto_format_code: false
   run_tests_before_commit: false
   
