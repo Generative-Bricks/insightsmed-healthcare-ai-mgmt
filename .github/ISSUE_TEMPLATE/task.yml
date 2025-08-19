@@ -1,0 +1,160 @@
+name: "🎯 Development Task"
+description: Create a development task for CoderBot to execute
+title: "[TASK] "
+labels: ["task", "coderbot"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Task Request for CoderBot
+        This template helps you create well-structured tasks that CoderBot can effectively execute.
+
+  - type: dropdown
+    id: task_type
+    attributes:
+      label: Task Type
+      description: What type of development task is this?
+      options:
+        - Implementation (New Feature)
+        - Enhancement (Existing Feature)
+        - Refactoring
+        - Documentation
+        - Testing
+        - Performance Optimization
+        - Security Improvement
+        - API Development
+        - Database Design
+        - UI/UX Implementation
+    validations:
+      required: true
+
+  - type: dropdown
+    id: suggested_agent
+    attributes:
+      label: Suggested Agent
+      description: Which specialized agent should handle this? (Optional - CoderBot will auto-select if not specified)
+      options:
+        - Auto-select (Let CoderBot decide)
+        - python-developer
+        - golang-developer
+        - rust-developer
+        - typescript-developer
+        - javascript-developer
+        - backend-developer
+        - frontend-developer
+        - database-designer
+        - api-designer
+        - devops-engineer
+        - solution-architect
+        - security-architect
+        - cloud-architect
+        - ai-engineer
+        - performance-engineer
+        - test-automation-engineer
+        - code-reviewer
+        - ux-designer
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Task Description
+      description: Provide a clear, detailed description of what needs to be done
+      placeholder: |
+        Example: "Implement user authentication with JWT tokens including:
+        - Login endpoint at POST /api/auth/login
+        - Token refresh at POST /api/auth/refresh
+        - Middleware for protected routes
+        - Password hashing with bcrypt
+        - Rate limiting on auth endpoints"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Define specific, measurable criteria for task completion
+      placeholder: |
+        - [ ] JWT tokens are generated with proper expiration
+        - [ ] Refresh tokens are stored securely
+        - [ ] Password validation includes complexity requirements
+        - [ ] Rate limiting prevents brute force (5 attempts per minute)
+        - [ ] All endpoints have proper error handling
+        - [ ] Unit tests achieve 80% coverage
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical_context
+    attributes:
+      label: Technical Context
+      description: Provide relevant technical details, constraints, or existing code references
+      placeholder: |
+        - Framework: Express.js with TypeScript
+        - Database: PostgreSQL with Prisma ORM
+        - Related files: src/controllers/auth.ts, src/middleware/auth.ts
+        - Existing auth logic in: src/services/authService.ts
+        - Follow REST API conventions in docs/API_STANDARDS.md
+    validations:
+      required: false
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies & Blockers
+      description: List any dependencies, related issues, or potential blockers
+      placeholder: |
+        - Depends on: #123 (Database schema setup)
+        - Blocked by: #456 (User model implementation)
+        - Related to: #789 (Frontend login page)
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Task priority level (affects processing order)
+      options:
+        - "🔴 Critical (Security/Production Issues)"
+        - "🟠 High (Core Features/Blocking)"
+        - "🟡 Medium (Standard Features)"
+        - "🟢 Low (Nice to Have)"
+      default: "🟡 Medium (Standard Features)"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: coderbot_actions
+    attributes:
+      label: CoderBot Actions
+      description: What should CoderBot do with this task?
+      options:
+        - label: Implement the solution
+          required: false
+        - label: Create/update tests
+          required: false
+        - label: Update documentation
+          required: false
+        - label: Create PR when complete
+          required: false
+        - label: Run linting and type checking
+          required: false
+
+  - type: textarea
+    id: additional_instructions
+    attributes:
+      label: Additional Instructions for CoderBot
+      description: Any specific instructions or preferences for implementation
+      placeholder: |
+        @coderbot please:
+        - Use async/await pattern throughout
+        - Add comprehensive error logging
+        - Include JSDoc comments for all public methods
+        - Follow our naming convention for variables
+    validations:
+      required: false

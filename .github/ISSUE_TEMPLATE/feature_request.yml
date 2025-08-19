@@ -1,0 +1,200 @@
+name: "✨ Feature Request"
+description: Request a new feature for CoderBot to implement
+title: "[FEATURE] "
+labels: ["enhancement", "coderbot"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request for CoderBot
+        Describe the feature you'd like CoderBot to implement.
+
+  - type: dropdown
+    id: feature_category
+    attributes:
+      label: Feature Category
+      description: What category does this feature fall under?
+      options:
+        - User Interface
+        - API/Backend
+        - Database
+        - Authentication/Security
+        - Performance
+        - Developer Experience
+        - Documentation
+        - Testing
+        - Deployment/DevOps
+        - Monitoring/Analytics
+        - Integration
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: Feature Description
+      description: Detailed description of the feature
+      placeholder: |
+        I want to add a dashboard that shows:
+        - Real-time user activity metrics
+        - System performance graphs
+        - Recent error logs
+        - Active user sessions
+        - API usage statistics
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem_statement
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve?
+      placeholder: |
+        Currently, we have no visibility into system health and user activity.
+        We need to manually check logs and databases to understand usage patterns.
+        This makes it difficult to identify issues before users report them.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Solution
+      description: How should this feature work? Include technical approach if known
+      placeholder: |
+        - Create a React dashboard at /admin/dashboard
+        - Use WebSocket for real-time updates
+        - Implement API endpoints for metrics:
+          - GET /api/metrics/users
+          - GET /api/metrics/performance
+          - GET /api/metrics/errors
+        - Use Chart.js for data visualization
+        - Add caching layer with Redis
+    validations:
+      required: true
+
+  - type: textarea
+    id: user_stories
+    attributes:
+      label: User Stories
+      description: Describe how users will interact with this feature
+      placeholder: |
+        As an admin, I want to:
+        - View real-time user count so I can monitor system load
+        - See error trends so I can identify issues quickly
+        - Export metrics data so I can create reports
+        
+        As a developer, I want to:
+        - Monitor API performance so I can optimize slow endpoints
+        - Track feature usage so I can make data-driven decisions
+    validations:
+      required: false
+
+  - type: textarea
+    id: design_mockups
+    attributes:
+      label: Design References / Mockups
+      description: Link to designs, mockups, or reference implementations
+      placeholder: |
+        - Mockup: [Figma Link](https://figma.com/...)
+        - Similar to: GitHub Insights dashboard
+        - Reference: AWS CloudWatch metrics
+        - Color scheme: Follow existing design system
+    validations:
+      required: false
+
+  - type: textarea
+    id: technical_requirements
+    attributes:
+      label: Technical Requirements
+      description: Specific technical requirements or constraints
+      placeholder: |
+        - Must handle 10,000 concurrent users
+        - Data refresh every 5 seconds
+        - Mobile responsive design
+        - Accessibility: WCAG 2.1 AA compliant
+        - Browser support: Chrome, Firefox, Safari, Edge
+        - API response time < 200ms
+    validations:
+      required: false
+
+  - type: textarea
+    id: success_metrics
+    attributes:
+      label: Success Metrics
+      description: How will we measure if this feature is successful?
+      placeholder: |
+        - Page load time < 2 seconds
+        - 80% of admins use dashboard daily
+        - 50% reduction in time to identify issues
+        - Zero critical bugs in first month
+    validations:
+      required: false
+
+  - type: dropdown
+    id: implementation_size
+    attributes:
+      label: Estimated Implementation Size
+      description: Rough estimate of effort required
+      options:
+        - "XS - Few hours"
+        - "S - 1-2 days"
+        - "M - 3-5 days"
+        - "L - 1-2 weeks"
+        - "XL - 2+ weeks"
+        - "Unknown"
+      default: "Unknown"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: feature_requirements
+    attributes:
+      label: Feature Requirements
+      description: What should this feature include?
+      options:
+        - label: Frontend UI components
+          required: false
+        - label: Backend API endpoints
+          required: false
+        - label: Database schema changes
+          required: false
+        - label: Authentication/permissions
+          required: false
+        - label: Documentation
+          required: false
+        - label: Unit tests
+          required: false
+        - label: Integration tests
+          required: false
+        - label: Performance optimization
+          required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Other ways this could be solved
+      placeholder: |
+        - Use existing tool like Grafana instead of building custom
+        - Integrate with third-party service like DataDog
+        - Simple log aggregation without real-time updates
+    validations:
+      required: false
+
+  - type: textarea
+    id: coderbot_instructions
+    attributes:
+      label: Implementation Instructions for CoderBot
+      description: Specific guidance for CoderBot's implementation
+      placeholder: |
+        @coderbot please:
+        - Start with API endpoints before building UI
+        - Use our existing WebSocket infrastructure
+        - Follow the component patterns in src/components
+        - Add feature flag for gradual rollout
+        - Include comprehensive error boundaries
+    validations:
+      required: false

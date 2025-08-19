@@ -1,0 +1,161 @@
+name: "🐛 Bug Report"
+description: Report a bug for CoderBot to investigate and fix
+title: "[BUG] "
+labels: ["bug", "coderbot", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug Report for CoderBot
+        Help CoderBot understand and fix the issue by providing detailed information.
+
+  - type: dropdown
+    id: bug_severity
+    attributes:
+      label: Bug Severity
+      description: How severe is this bug?
+      options:
+        - "🔴 Critical - System Down/Data Loss"
+        - "🟠 High - Major Feature Broken"
+        - "🟡 Medium - Feature Partially Working"
+        - "🟢 Low - Minor Issue/Cosmetic"
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Bug Description
+      description: Clear description of what's going wrong
+      placeholder: |
+        The user authentication fails when trying to login with valid credentials.
+        The API returns a 500 error instead of a JWT token.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Detailed steps to reproduce the issue
+      placeholder: |
+        1. Navigate to /login
+        2. Enter valid email: test@example.com
+        3. Enter valid password: ********
+        4. Click "Login" button
+        5. Observe 500 error in console
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: |
+        User should receive a JWT token and be redirected to dashboard
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happens?
+      placeholder: |
+        API returns 500 Internal Server Error
+        Error message: "Cannot read property 'id' of undefined"
+    validations:
+      required: true
+
+  - type: textarea
+    id: error_logs
+    attributes:
+      label: Error Logs / Stack Trace
+      description: Include any error messages or stack traces
+      render: shell
+      placeholder: |
+        TypeError: Cannot read property 'id' of undefined
+            at AuthController.login (src/controllers/auth.ts:45:23)
+            at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Details
+      description: Where is this bug occurring?
+      placeholder: |
+        - Environment: Production / Staging / Development
+        - Node version: 20.x
+        - Browser: Chrome 120
+        - OS: Ubuntu 22.04
+        - Relevant package versions
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected_components
+    attributes:
+      label: Affected Files/Components
+      description: Which files or components are involved? (Helps CoderBot locate the issue)
+      placeholder: |
+        - src/controllers/auth.ts (line 45)
+        - src/services/userService.ts
+        - src/middleware/auth.ts
+    validations:
+      required: false
+
+  - type: dropdown
+    id: regression
+    attributes:
+      label: Is this a regression?
+      description: Did this work before?
+      options:
+        - "Yes - Used to work in version:"
+        - "No - Never worked"
+        - "Unknown"
+    validations:
+      required: false
+
+  - type: textarea
+    id: attempted_fixes
+    attributes:
+      label: Attempted Solutions
+      description: What have you already tried to fix this?
+      placeholder: |
+        - Verified database connection is working
+        - Checked user exists in database
+        - Confirmed password hash matches
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: coderbot_debug_actions
+    attributes:
+      label: CoderBot Debug Actions
+      description: What should CoderBot do?
+      options:
+        - label: Investigate and diagnose the root cause
+          required: false
+        - label: Fix the bug
+          required: false
+        - label: Add error handling to prevent recurrence
+          required: false
+        - label: Create regression tests
+          required: false
+        - label: Update related documentation
+          required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context for CoderBot
+      description: Any other information that might help
+      placeholder: |
+        @coderbot this started happening after PR #123 was merged.
+        The issue only occurs for users created before 2024.
+        Temporary workaround: manually set user.id in database.

@@ -1,0 +1,84 @@
+# CoderBot Configuration
+version: 1
+
+# Agent configuration
+agents:
+  enabled: true
+  default: backend-developer
+  parallel_execution: true
+  max_concurrent: 3
+  
+# Epic breakdown settings
+epic_breakdown:
+  enabled: true
+  auto_create_tasks: true
+  max_tasks_per_epic: 30
+  task_size_limit: 3  # days
+  require_approval: false
+  
+# Label configuration
+labels:
+  auto_create: true
+  prefix:
+    agent: "agent:"
+    phase: "phase:"
+    stack: "stack:"
+    compliance: "compliance:"
+    size: "size:"
+    priority: "priority:"
+    
+# Task management
+tasks:
+  auto_assign: true
+  create_branches: true
+  branch_naming: "coderbot/{issue-number}-{task-title}"
+  
+# Notification settings
+notifications:
+  enabled: true
+  channel: issues  # issues, slack, email
+  mention_assignees: true
+  summary_on_completion: true
+  
+# Security settings
+security:
+  require_approval: false
+  scan_dependencies: true
+  check_secrets: true
+  allowed_actions:
+    - create_issues
+    - add_comments
+    - apply_labels
+    - create_branches
+    
+# Integration settings
+integrations:
+  github_app: true
+  webhooks: true
+  api_access: true
+  
+# Performance settings
+performance:
+  cache_enabled: true
+  rate_limiting: true
+  max_requests_per_minute: 60
+  
+# Workflow settings
+workflow:
+  enable_git_hooks: true
+  auto_format_code: false
+  run_tests_before_commit: false
+  
+# Custom rules (optional)
+rules:
+  - name: "Security First"
+    condition: "has_label:security"
+    action: "assign:security-engineer"
+    
+  - name: "Frontend Tasks"
+    condition: "title_contains:UI,component,frontend"
+    action: "assign:frontend-developer"
+    
+  - name: "Database Tasks"
+    condition: "title_contains:schema,database,migration"
+    action: "assign:database-designer"
