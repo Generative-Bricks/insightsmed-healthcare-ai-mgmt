@@ -1,7 +1,7 @@
 # [EPIC] InsightsMed Healthcare AI Management Platform
 
-**GitHub Issue**: [#2](https://github.com/Generative-Bricks/insightsmed-healthcare-ai-mgmt/issues/2)
-**Status**: Active
+**GitHub Issue**: [#3](https://github.com/Generative-Bricks/insightsmed-healthcare-ai-mgmt/issues/3)
+**Status**: Active (CoderBot Processing)
 **Priority**: Critical
 **Timeline**: 3-6 months
 

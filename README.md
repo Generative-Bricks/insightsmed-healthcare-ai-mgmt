@@ -190,8 +190,8 @@ See [Vercel documentation](https://vercel.com/docs) for detailed deployment inst
 This project uses CoderBot for automated task management. See [CoderBot Documentation](./docs/CODERBOT.md) for details.
 
 ### Active Epic
-- **[#2 - InsightsMed Healthcare AI Management Platform](https://github.com/Generative-Bricks/insightsmed-healthcare-ai-mgmt/issues/2)**
-- Status: In Development
+- **[#3 - InsightsMed Healthcare AI Management Platform](https://github.com/Generative-Bricks/insightsmed-healthcare-ai-mgmt/issues/3)**
+- Status: In Development (CoderBot Processing)
 - Timeline: 3-6 months
 
 ## 📚 Documentation
