@@ -1,0 +1,34 @@
+# CoderBot Configuration
+version: 1
+
+# Agent configuration
+agents:
+  enabled: true
+  default: backend-developer
+  
+# Epic breakdown settings
+epic_breakdown:
+  enabled: true
+  auto_create_tasks: true
+  max_tasks_per_epic: 30
+  
+# Notification settings
+notifications:
+  enabled: true
+  channel: issues
+  
+# Label configuration
+labels:
+  auto_create: true
+  prefix:
+    agent: "agent:"
+    phase: "phase:"
+    stack: "stack:"
+    
+# Security settings
+security:
+  require_approval: false
+  allowed_actions:
+    - create_issues
+    - add_comments
+    - apply_labels
