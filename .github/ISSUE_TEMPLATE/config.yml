@@ -3,9 +3,24 @@ contact_links:
   - name: ⚡ Quick CoderBot Command
     url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/issues/new?assignees=&labels=coderbot%2Cquick-task&projects=&template=quick-command.yml
     about: Fast track for simple @coderbot requests - no complex forms needed
+  - name: 🏔️ Epic - Large Initiative
+    url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/issues/new?assignees=&labels=epic%2Ccoderbot&projects=&template=epic.yml
+    about: Create large initiatives that span multiple features and require coordination
+  - name: 🎯 Development Task
+    url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/issues/new?assignees=&labels=task%2Ccoderbot&projects=&template=task.yml
+    about: Create specific development tasks for CoderBot to execute
+  - name: 👥 User Story
+    url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/issues/new?assignees=&labels=user-story%2Ccoderbot&projects=&template=user-story.yml
+    about: Create user stories for feature development from the user's perspective
+  - name: 🐛 Bug Report
+    url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/issues/new?assignees=&labels=bug%2Ccoderbot%2Cneeds-triage&projects=&template=bug_report.yml
+    about: Report bugs for CoderBot to investigate and fix
+  - name: ✨ Feature Request
+    url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/issues/new?assignees=&labels=enhancement%2Ccoderbot&projects=&template=feature_request.yml
+    about: Request new features for CoderBot to implement
+  - name: 📝 General Issue / Question
+    url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/issues/new?assignees=&labels=question%2Csupport&projects=&template=general-issue.yml
+    about: General questions, support requests, or other discussions
   - name: 📚 Documentation & Guides
     url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/tree/main/docs
     about: Complete documentation, user guides, and CoderBot usage examples
-  - name: 💬 Questions & Support
-    url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/issues/new?assignees=&labels=question%2Csupport&projects=&template=general-issue.yml&issue_type=%E2%9D%93+Question+-+Need+clarification+or+help
-    about: Get help, ask questions, or discuss ideas about the project
