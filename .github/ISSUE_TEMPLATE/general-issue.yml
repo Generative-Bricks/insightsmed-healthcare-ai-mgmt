@@ -1,0 +1,220 @@
+name: "📝 General Issue"
+description: General-purpose template for issues that don't fit other categories
+title: ""
+labels: ["general", "coderbot"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📝 General Issue
+        Use this template for any issue that doesn't fit the other specific categories (Bug, Feature, Task, Epic, User Story).
+        
+        **Good for:**
+        - Questions and discussions
+        - Documentation improvements  
+        - Process improvements
+        - Infrastructure changes
+        - Research and investigation
+        - General requests
+
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Issue Type
+      description: What category does this issue fall under?
+      options:
+        - "❓ Question - Need clarification or help"
+        - "💡 Suggestion - General improvement idea"
+        - "📚 Documentation - Documentation related"
+        - "🔧 Process - Development process improvement"
+        - "🏗️ Infrastructure - Infrastructure or tooling"
+        - "🔬 Research - Investigation or research needed"
+        - "🎨 Design - UI/UX design related"
+        - "📊 Analytics - Data or metrics related"
+        - "🔒 Security - Security related (non-bug)"
+        - "🌐 Integration - Third-party integration"
+        - "⚙️ Configuration - Configuration or setup"
+        - "🚀 Other - Doesn't fit above categories"
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: Description
+      description: Describe the issue, request, or question in detail
+      placeholder: |
+        Please provide a clear and detailed description of:
+        - What you need or what the issue is about
+        - Context and background information
+        - Any relevant details that would help understand the request
+        
+        Examples:
+        - "We need to research the best approach for implementing real-time notifications"
+        - "Can we improve the deployment process to reduce downtime?"
+        - "The documentation for the API authentication is unclear"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_situation
+    attributes:
+      label: Current Situation
+      description: What's the current state? What exists now?
+      placeholder: |
+        Describe the current situation, process, or implementation:
+        - What currently exists or is being done?
+        - What are the limitations or problems with the current approach?
+        - What documentation or tools are currently available?
+    validations:
+      required: false
+
+  - type: textarea
+    id: desired_outcome
+    attributes:
+      label: Desired Outcome
+      description: What would you like to see happen or be improved?
+      placeholder: |
+        Describe the ideal result or improvement:
+        - What should the end state look like?
+        - What specific improvements are you seeking?
+        - How would this benefit the project or users?
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Success Criteria
+      description: How will we know this issue has been successfully resolved?
+      placeholder: |
+        Define measurable criteria for success:
+        - [ ] Specific deliverable or outcome achieved
+        - [ ] Documentation is updated and clear
+        - [ ] Process improvement is implemented
+        - [ ] Questions are answered with actionable information
+        - [ ] Research findings are documented and shared
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority_level
+    attributes:
+      label: Priority
+      description: How important or urgent is this issue?
+      options:
+        - "🔴 High - Blocking or very important"
+        - "🟠 Medium - Important but not blocking"
+        - "🟡 Low - Nice to have or future consideration"
+        - "⚪ Info - For information or discussion only"
+      default: "🟠 Medium - Important but not blocking"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: effort_estimate
+    attributes:
+      label: Estimated Effort
+      description: Rough estimate of effort or complexity
+      options:
+        - "XS - Quick task (< 2 hours)"
+        - "S - Small effort (half day)"
+        - "M - Medium effort (1-2 days)"
+        - "L - Large effort (3-5 days)"
+        - "XL - Very large effort (1+ weeks)"
+        - "Unknown - Needs investigation"
+      default: "Unknown - Needs investigation"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: issue_scope
+    attributes:
+      label: Areas Affected
+      description: Which areas of the project does this issue affect?
+      options:
+        - label: "Frontend/UI"
+          required: false
+        - label: "Backend/API"
+          required: false
+        - label: "Database"
+          required: false
+        - label: "Documentation"
+          required: false
+        - label: "Testing"
+          required: false
+        - label: "Deployment/DevOps"
+          required: false
+        - label: "Security"
+          required: false
+        - label: "Performance"
+          required: false
+        - label: "Third-party integrations"
+          required: false
+        - label: "Development process"
+          required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any additional information, links, or context that might be helpful
+      placeholder: |
+        Include any relevant:
+        - Links to related documentation, issues, or PRs
+        - Screenshots or examples
+        - Research you've already done
+        - Constraints or requirements to consider
+        - Stakeholders who should be involved
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: coderbot_actions
+    attributes:
+      label: What should CoderBot help with?
+      description: Select actions you'd like CoderBot to assist with
+      options:
+        - label: "🔍 Research and investigation"
+          required: false
+        - label: "📝 Create or update documentation"
+          required: false
+        - label: "💻 Implementation or coding"
+          required: false
+        - label: "🧪 Testing and validation"
+          required: false
+        - label: "📊 Analysis and recommendations"
+          required: false
+        - label: "🔄 Process improvement suggestions"
+          required: false
+        - label: "💬 Discussion and clarification"
+          required: false
+
+  - type: textarea
+    id: coderbot_instructions
+    attributes:
+      label: Specific Instructions for CoderBot (Optional)
+      description: Any specific guidance for how CoderBot should approach this issue
+      placeholder: |
+        @coderbot please:
+        - Focus on [specific aspect]
+        - Consider [particular constraints or requirements]
+        - Involve [specific team members or stakeholders]
+        - Use [preferred approach or methodology]
+        - Prioritize [specific goals or outcomes]
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **💡 Not sure which template to use?**
+        - **🐛 Bug Report** - Something is broken and needs fixing
+        - **✨ Feature Request** - New functionality you want added
+        - **🎯 Development Task** - Specific development work to be done
+        - **🏔️ Epic** - Large initiative spanning multiple features
+        - **👥 User Story** - Feature from user's perspective with acceptance criteria
+        - **⚡ Quick CoderBot Command** - Simple, immediate @coderbot requests

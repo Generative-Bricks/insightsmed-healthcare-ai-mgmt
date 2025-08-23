@@ -1,0 +1,111 @@
+name: "⚡ Quick CoderBot Command"
+description: Simple interface for quick @coderbot requests and tasks
+title: ""
+labels: ["coderbot", "quick-task"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚡ Quick CoderBot Command
+        Perfect for simple, straightforward requests that don't need complex templates.
+        
+        **Example uses:**
+        - `@coderbot fix the login bug`
+        - `@coderbot create a utils function for date formatting`
+        - `@coderbot add tests for the auth module`
+        - `@coderbot review the security in user.js`
+
+  - type: textarea
+    id: quick_task
+    attributes:
+      label: What do you need CoderBot to do?
+      description: Describe your request - CoderBot will understand and execute it
+      placeholder: |
+        Examples:
+        @coderbot create a React component for user profiles
+        @coderbot fix the database connection timeout issue
+        @coderbot add unit tests for the payment service
+        @coderbot review this code for performance issues
+        @coderbot implement password reset functionality
+      render: markdown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: quick_priority
+    attributes:
+      label: Priority
+      description: How urgent is this request?
+      options:
+        - "🟡 Normal - Standard processing"
+        - "🟠 High - Process soon"
+        - "🔴 Urgent - Process immediately"
+      default: "🟡 Normal - Standard processing"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: suggested_agent
+    attributes:
+      label: Preferred Agent (Optional)
+      description: Suggest a specific agent if you know which one fits best
+      options:
+        - "Auto-select (Let CoderBot decide)"
+        - "frontend-developer"
+        - "backend-developer"
+        - "api-designer"
+        - "security-engineer"
+        - "code-reviewer"
+        - "test-automation-engineer"
+        - "database-designer"
+        - "devops-engineer"
+        - "performance-engineer"
+        - "code-debugger"
+        - "innovation-catalyst"
+      default: "Auto-select (Let CoderBot decide)"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: quick_actions
+    attributes:
+      label: Quick Actions
+      description: What should CoderBot do? (Check all that apply)
+      options:
+        - label: "🔨 Implement/Fix the code"
+          required: false
+        - label: "🧪 Add or update tests"
+          required: false
+        - label: "📖 Update documentation"
+          required: false
+        - label: "🔍 Review for quality/security"
+          required: false
+        - label: "🚀 Create pull request when done"
+          required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context (Optional)
+      description: Any extra details that might help CoderBot understand your request
+      placeholder: |
+        - File locations: src/components/user/
+        - Related issues: #123, #456
+        - Specific requirements or constraints
+        - Examples or references
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **✨ How it works:**
+        1. Describe what you need in plain English
+        2. CoderBot will automatically select the best agent
+        3. Your request will be processed and implemented
+        4. Results will be posted back with a pull request
+        
+        **💡 Pro tip:** Be specific about what you want - the more detail, the better the result!

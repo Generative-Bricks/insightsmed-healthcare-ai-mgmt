@@ -1,0 +1,228 @@
+name: "👥 User Story"
+description: Create a user story for feature development from the user's perspective
+title: "[STORY] As a [user type], I want [goal] so that [benefit]"
+labels: ["user-story", "coderbot"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 👥 User Story
+        User stories help capture requirements from the end user's perspective, focusing on the value and benefit delivered.
+        
+        **Format:** "As a [type of user], I want [some goal] so that [some reason/benefit]"
+
+  - type: textarea
+    id: user_story
+    attributes:
+      label: User Story
+      description: Write the user story in the standard format
+      placeholder: |
+        As a [registered user], 
+        I want [to reset my password using my email], 
+        So that [I can regain access to my account when I forget my password].
+        
+        Examples:
+        - As a developer, I want to see real-time API metrics so that I can monitor performance issues immediately
+        - As a project manager, I want to export project reports so that I can share progress with stakeholders
+        - As a mobile user, I want the site to work offline so that I can access my data without internet
+    validations:
+      required: true
+
+  - type: dropdown
+    id: user_type
+    attributes:
+      label: User Type / Persona
+      description: Who is the primary user for this story?
+      options:
+        - "End User (Customer/Consumer)"
+        - "Admin User (System Administrator)"
+        - "Developer (Technical User)"
+        - "Manager (Business User)"
+        - "Guest User (Unauthenticated)"
+        - "Mobile User (Mobile App)"
+        - "API Consumer (External System)"
+        - "Support Staff (Customer Service)"
+        - "Other (Specify in description)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Define specific, testable conditions that must be met for this story to be complete
+      placeholder: |
+        **Given** [initial context/state]
+        **When** [action is performed]
+        **Then** [expected outcome]
+        
+        Example:
+        - **Given** a user has forgotten their password
+        - **When** they click "Forgot Password" and enter their email
+        - **Then** they should receive a password reset email within 2 minutes
+        
+        Additional criteria:
+        - [ ] Reset link expires after 1 hour
+        - [ ] User can only request reset once per 15 minutes
+        - [ ] Success message is shown after email is sent
+        - [ ] Works on both desktop and mobile
+    validations:
+      required: true
+
+  - type: textarea
+    id: business_value
+    attributes:
+      label: Business Value & Impact
+      description: Why is this story important? What's the business value?
+      placeholder: |
+        - Reduces support tickets by 40% (fewer password reset requests)
+        - Improves user retention by making account recovery easier
+        - Increases user satisfaction with self-service options
+        - Estimated impact: Medium-High
+    validations:
+      required: true
+
+  - type: textarea
+    id: user_journey
+    attributes:
+      label: User Journey / Flow
+      description: Describe the complete user experience step by step
+      placeholder: |
+        1. User realizes they can't remember their password
+        2. User clicks "Forgot Password" on login page
+        3. User enters their email address
+        4. User clicks "Send Reset Link" button
+        5. System validates email and sends reset link
+        6. User receives email and clicks the reset link
+        7. User is taken to password reset page
+        8. User enters and confirms new password
+        9. User is redirected to login page with success message
+        10. User logs in with new password
+    validations:
+      required: false
+
+  - type: textarea
+    id: technical_notes
+    attributes:
+      label: Technical Implementation Notes
+      description: Technical considerations, constraints, or implementation guidance
+      placeholder: |
+        - Use secure token generation (UUID v4 or similar)
+        - Store reset tokens with expiration in database
+        - Email template should match brand guidelines
+        - Rate limiting: 3 requests per email per hour
+        - Log all password reset attempts for security monitoring
+        - Consider GDPR implications for email handling
+    validations:
+      required: false
+
+  - type: dropdown
+    id: story_size
+    attributes:
+      label: Story Size / Effort
+      description: Rough estimate of implementation effort
+      options:
+        - "XS - 1-2 hours"
+        - "S - Half day"
+        - "M - 1-2 days"
+        - "L - 3-5 days"
+        - "XL - 1-2 weeks"
+        - "Unknown - Needs analysis"
+      default: "Unknown - Needs analysis"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: story_priority
+    attributes:
+      label: Priority
+      description: Business priority for this user story
+      options:
+        - "🔴 Must Have - Critical for release"
+        - "🟠 Should Have - Important but not critical"
+        - "🟡 Could Have - Nice to have"
+        - "🟢 Won't Have - Future consideration"
+      default: "🟠 Should Have - Important but not critical"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: story_dependencies
+    attributes:
+      label: Dependencies & Requirements
+      description: What does this story depend on or require?
+      options:
+        - label: "User authentication system must be in place"
+          required: false
+        - label: "Email service must be configured"
+          required: false
+        - label: "Database schema changes required"
+          required: false
+        - label: "Frontend UI components needed"
+          required: false
+        - label: "API endpoints need to be created"
+          required: false
+        - label: "Third-party integrations required"
+          required: false
+        - label: "Security review needed"
+          required: false
+        - label: "Performance testing required"
+          required: false
+
+  - type: textarea
+    id: definition_of_done
+    attributes:
+      label: Definition of Done
+      description: Checklist of what must be completed for this story to be considered "done"
+      placeholder: |
+        - [ ] Code implementation complete
+        - [ ] Unit tests written and passing
+        - [ ] Integration tests passing
+        - [ ] Code review completed
+        - [ ] Documentation updated
+        - [ ] Security review passed (if applicable)
+        - [ ] Accessibility requirements met
+        - [ ] Cross-browser testing completed
+        - [ ] Performance requirements met
+        - [ ] Stakeholder acceptance received
+    validations:
+      required: false
+
+  - type: textarea
+    id: coderbot_instructions
+    attributes:
+      label: Implementation Instructions for CoderBot
+      description: Specific guidance for CoderBot's implementation of this user story
+      placeholder: |
+        @coderbot for this user story please:
+        - Start with the backend API endpoints first
+        - Use our existing email service for notifications
+        - Follow the password security requirements in SECURITY.md
+        - Create both web and mobile-responsive UI
+        - Add comprehensive error handling and validation
+        - Include proper logging for security monitoring
+        - Use the security-engineer agent for sensitive operations
+        - Create integration tests for the complete flow
+    validations:
+      required: false
+
+  - type: textarea
+    id: related_stories
+    attributes:
+      label: Related User Stories / Issues
+      description: Link to related stories, epics, or issues
+      placeholder: |
+        Related to:
+        - Epic #123: User Account Management
+        - Story #456: User Registration Flow
+        - Issue #789: Password Security Requirements
+        
+        Depends on:
+        - Story #321: Email Service Configuration
+        
+        Blocks:
+        - Story #654: Password Strength Validation
+    validations:
+      required: false

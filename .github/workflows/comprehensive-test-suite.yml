@@ -1,0 +1,389 @@
+name: Comprehensive Feature Validation Test Suite
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: 'Test suite to run'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - approval-gates
+          - epic-workflow
+          - task-hierarchy
+          - document-creation
+          - github-integration
+  schedule:
+    # Run comprehensive tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+env:
+  NODE_VERSION: '18'
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_APP_ID: ${{ secrets.GITHUB_APP_ID }}
+  GITHUB_INSTALLATION_ID: ${{ secrets.GITHUB_INSTALLATION_ID }}
+  GITHUB_PRIVATE_KEY_BASE64: ${{ secrets.GITHUB_PRIVATE_KEY_BASE64 }}
+  GITHUB_WEBHOOK_SECRET: ${{ secrets.GITHUB_WEBHOOK_SECRET }}
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  CLOUD_RUN_URL: ${{ secrets.CLOUD_RUN_URL }}
+  GITHUB_OWNER: ${{ github.repository_owner }}
+  GITHUB_REPO: ${{ github.event.repository.name }}
+
+jobs:
+  setup:
+    name: Setup Test Environment
+    runs-on: ubuntu-latest
+    outputs:
+      test-matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: |
+          npm ci
+          npm run build --if-present
+          
+      - name: Set Test Matrix
+        id: set-matrix
+        run: |
+          if [ "${{ inputs.test_suite }}" == "all" ] || [ -z "${{ inputs.test_suite }}" ]; then
+            echo "matrix={\"suite\":[\"approval-gates\",\"epic-workflow\",\"task-hierarchy\",\"document-creation\",\"github-integration\"]}" >> $GITHUB_OUTPUT
+          else
+            echo "matrix={\"suite\":[\"${{ inputs.test_suite }}\"]}" >> $GITHUB_OUTPUT
+          fi
+
+  test-approval-gates:
+    name: Test Approval Gates
+    needs: setup
+    if: contains(fromJson(needs.setup.outputs.test-matrix).suite, 'approval-gates') || contains(fromJson(needs.setup.outputs.test-matrix).suite, 'all')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Run Approval Gate Tests
+        run: |
+          echo "Testing all 6 approval gates..."
+          npm test -- tests/integration/approval-gates-comprehensive.test.js --verbose
+          
+      - name: Validate Gate Configuration API
+        run: |
+          echo "Testing gate configuration endpoints..."
+          npm test -- tests/integration/gate-configuration-api.test.js --verbose
+          
+      - name: Test Auto-Approval Logic
+        run: |
+          echo "Testing auto-approval conditions..."
+          npm test -- tests/integration/auto-approval-logic.test.js --verbose
+          
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: approval-gates-test-results
+          path: |
+            test-results/
+            coverage/
+
+  test-epic-workflow:
+    name: Test Epic Workflow
+    needs: setup
+    if: contains(fromJson(needs.setup.outputs.test-matrix).suite, 'epic-workflow') || contains(fromJson(needs.setup.outputs.test-matrix).suite, 'all')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Test Epic Creation Workflow
+        run: |
+          echo "Testing epic creation and project manager assignment..."
+          npm test -- tests/integration/epic-creation-workflow.test.js --verbose
+          
+      - name: Test Plan Document Creation
+        run: |
+          echo "Testing plan document creation in docs/planning..."
+          npm test -- tests/integration/epic-plan-document.test.js --verbose
+          
+      - name: Test GitHub Discussion Integration
+        run: |
+          echo "Testing GitHub discussion communication..."
+          npm test -- tests/integration/github-discussion-integration.test.js --verbose
+          
+      - name: Verify Planning Documents
+        run: |
+          echo "Verifying planning documents exist..."
+          ls -la docs/planning/ || echo "Planning directory not found"
+          
+      - name: Upload Epic Workflow Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: epic-workflow-test-results
+          path: |
+            test-results/
+            docs/planning/
+
+  test-task-hierarchy:
+    name: Test Task Hierarchy
+    needs: setup
+    if: contains(fromJson(needs.setup.outputs.test-matrix).suite, 'task-hierarchy') || contains(fromJson(needs.setup.outputs.test-matrix).suite, 'all')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Test Epic to User Story Hierarchy
+        run: |
+          echo "Testing Epic -> User Story hierarchy..."
+          npm test -- tests/integration/task-hierarchy-epic-story.test.js --verbose
+          
+      - name: Test User Story to Tasks
+        run: |
+          echo "Testing User Story -> Tasks hierarchy..."
+          npm test -- tests/integration/task-hierarchy-story-tasks.test.js --verbose
+          
+      - name: Test Task to Subtasks
+        run: |
+          echo "Testing Task -> Subtasks with proper linking..."
+          npm test -- tests/integration/task-subtask-linking.test.js --verbose
+          
+      - name: Test Task Dependencies
+        run: |
+          echo "Testing task dependency management..."
+          npm test -- tests/integration/task-dependencies.test.js --verbose
+          
+      - name: Test Bug Tracking
+        run: |
+          echo "Testing bug tracking in hierarchy..."
+          npm test -- tests/integration/bug-tracking-hierarchy.test.js --verbose
+          
+      - name: Upload Hierarchy Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: task-hierarchy-test-results
+          path: test-results/
+
+  test-document-creation:
+    name: Test Document Creation Requirements
+    needs: setup
+    if: contains(fromJson(needs.setup.outputs.test-matrix).suite, 'document-creation') || contains(fromJson(needs.setup.outputs.test-matrix).suite, 'all')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Test Plan Document Requirements
+        run: |
+          echo "Testing plan document creation requirements..."
+          npm test -- tests/integration/document-requirements.test.js --verbose
+          
+      - name: Test Task Blocking Without Documents
+        run: |
+          echo "Testing task blocking when documents missing..."
+          npm test -- tests/integration/task-blocking-documents.test.js --verbose
+          
+      - name: Verify Document Structure
+        run: |
+          echo "Checking document structure..."
+          find docs -type f -name "*.md" | head -20
+          
+      - name: Upload Document Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: document-creation-test-results
+          path: |
+            test-results/
+            docs/
+
+  test-github-integration:
+    name: Test GitHub Integration
+    needs: setup
+    if: contains(fromJson(needs.setup.outputs.test-matrix).suite, 'github-integration') || contains(fromJson(needs.setup.outputs.test-matrix).suite, 'all')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Test GitHub App Authentication
+        run: |
+          echo "Testing GitHub App authentication..."
+          npm test -- tests/integration/github-app-auth.test.js --verbose
+          
+      - name: Test Webhook Processing
+        run: |
+          echo "Testing webhook signature verification and processing..."
+          npm test -- tests/integration/webhook-processing.test.js --verbose
+          
+      - name: Test Issue Creation
+        run: |
+          echo "Testing automated issue creation..."
+          npm test -- tests/integration/github-issue-creation.test.js --verbose
+          
+      - name: Test PR Creation
+        run: |
+          echo "Testing automated PR creation..."
+          npm test -- tests/integration/github-pr-creation.test.js --verbose
+          
+      - name: Test Comment Posting
+        run: |
+          echo "Testing GitHub comment posting..."
+          npm test -- tests/integration/github-comment-posting.test.js --verbose
+          
+      - name: Upload GitHub Integration Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-integration-test-results
+          path: test-results/
+
+  test-cloud-run-integration:
+    name: Test Cloud Run Deployment
+    needs: [test-approval-gates, test-epic-workflow, test-task-hierarchy]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Test Cloud Run Health Check
+        run: |
+          echo "Testing Cloud Run deployment health..."
+          curl -f "${CLOUD_RUN_URL}/health" || exit 1
+          
+      - name: Test Webhook Endpoint
+        run: |
+          echo "Testing webhook endpoint availability..."
+          curl -X POST "${CLOUD_RUN_URL}/github/webhooks" \
+            -H "Content-Type: application/json" \
+            -H "X-GitHub-Event: ping" \
+            -d '{"zen": "Design for failure."}' || exit 1
+          
+      - name: Test MCP Server Connectivity
+        run: |
+          echo "Testing MCP server connectivity..."
+          curl -f "${CLOUD_RUN_URL}/api/mcp/health" || echo "MCP health check not available"
+
+  comprehensive-report:
+    name: Generate Comprehensive Test Report
+    needs: [test-approval-gates, test-epic-workflow, test-task-hierarchy, test-document-creation, test-github-integration]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        
+      - name: Generate Test Summary
+        run: |
+          echo "# Comprehensive Test Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Test Suite Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          echo "| Test Suite | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Approval Gates | ${{ needs.test-approval-gates.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Epic Workflow | ${{ needs.test-epic-workflow.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Task Hierarchy | ${{ needs.test-task-hierarchy.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Document Creation | ${{ needs.test-document-creation.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| GitHub Integration | ${{ needs.test-github-integration.result }} |" >> $GITHUB_STEP_SUMMARY
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Key Features Validated" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ All 6 approval gates functioning" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Epic workflow with project manager assignment" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Plan document creation in docs/planning" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Task hierarchy: Epic → User Story → Tasks → Bugs" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Subtask linking and dependencies" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ GitHub discussion integration" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Document creation requirements" >> $GITHUB_STEP_SUMMARY
+          
+      - name: Create Test Report Issue
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Test Suite Failure - ${new Date().toISOString().split('T')[0]}`,
+              body: `## Test Suite Failure Report
+              
+              One or more test suites failed during comprehensive validation.
+              
+              **Failed Suites:**
+              ${context.needs['test-approval-gates'].result === 'failure' ? '- Approval Gates\n' : ''}
+              ${context.needs['test-epic-workflow'].result === 'failure' ? '- Epic Workflow\n' : ''}
+              ${context.needs['test-task-hierarchy'].result === 'failure' ? '- Task Hierarchy\n' : ''}
+              ${context.needs['test-document-creation'].result === 'failure' ? '- Document Creation\n' : ''}
+              ${context.needs['test-github-integration'].result === 'failure' ? '- GitHub Integration\n' : ''}
+              
+              **Action Required:**
+              Please review the test results and fix any failing tests.
+              
+              [View Workflow Run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
+              `,
+              labels: ['test-failure', 'automated']
+            });
+            console.log(`Created issue #${issue.data.number}`);

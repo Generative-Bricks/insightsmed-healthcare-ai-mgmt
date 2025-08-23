@@ -1,11 +1,11 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 💬 Quick CoderBot Command
-    url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/issues
-    about: For quick tasks, just create an issue and mention @coderbot with your request
-  - name: 📚 Documentation
+  - name: ⚡ Quick CoderBot Command
+    url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/issues/new?assignees=&labels=coderbot%2Cquick-task&projects=&template=quick-command.yml
+    about: Fast track for simple @coderbot requests - no complex forms needed
+  - name: 📚 Documentation & Guides
     url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/tree/main/docs
-    about: Check our documentation for CoderBot usage and examples
-  - name: 🤔 Questions & Discussions
-    url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/discussions
-    about: Ask questions and discuss ideas with the community
+    about: Complete documentation, user guides, and CoderBot usage examples
+  - name: 💬 Questions & Support
+    url: https://github.com/Generative-Bricks/genbricks-internal-coderbot/issues/new?assignees=&labels=question%2Csupport&projects=&template=general-issue.yml&issue_type=%E2%9D%93+Question+-+Need+clarification+or+help
+    about: Get help, ask questions, or discuss ideas about the project
